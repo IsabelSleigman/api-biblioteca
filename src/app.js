@@ -19,12 +19,6 @@ app.get('/livros/:id', (requisicao, resposta) => {
     resposta.status(200).json(livros[index]);
 })
 
-app.put('/livros/:id', (requisicao, resposta) => {
-    let index = buscaLivro(requisicao.params.id);
-    livros[index].titulo = requisicao.body.titulo;
-    resposta.status(200).json(livros[index]);
-})
-
 app.delete('/livros/:id', (requisicao, resposta) => {
     let { id } = requisicao.params;
     let index = buscaLivro(id);
