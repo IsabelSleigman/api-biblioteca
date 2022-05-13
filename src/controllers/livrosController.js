@@ -4,7 +4,19 @@ class LivroController{
 
     static listarLivros = (req, res) => {
         livros.find((err, livros) => {
-            res.status(200).json(livros)
+            res.status(200).json(livros);
+        })
+    }
+
+    static buscaPorId = (req, res) => {
+        const id = req.params.id;
+
+        livros.findById(id, (err, livro) => {
+            if(err) {
+                res.status(400).send({message: `${err} - Id não encontrado}`});
+            }else{
+                res.status(200).send(livro);
+            }
         })
     }
 
@@ -22,13 +34,13 @@ class LivroController{
     }
 
     static editarLivro = (req, res) => {
-        const id = req.params.id
+        const id = req.params.id;
 
         livros.findByIdAndUpdate(id, {$set: req.body}, (err) => {
             if(!err){
-                res.status(200).send({message: 'Livro atualizado com sucesso!'})
+                res.status(200).send({message: 'Livro atualizado com sucesso!'});
             }else{
-                res.status(500).send({message: `${err.message} - Falha ao editar livro.`})
+                res.status(500).send({message: `${err.message} - Falha ao editar livro.`});
             }
         })
     }
